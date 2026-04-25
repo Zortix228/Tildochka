@@ -72,7 +72,12 @@ if (!valid.includes(pass)) {
 
 <!-- ВИДЕО -->
 <div class="video-box">
-  <video id="player" width="600" controls>
+  <div class="video-box">
+  <iframe id="player" width="600" height="340"
+    src="https://www.youtube.com/embed/mQyWs9O2e_I"
+    frameborder="0" allowfullscreen>
+  </iframe>
+</div>
     <source src="episode1.mp4" type="video/mp4">
   </video>
 </div>
@@ -108,6 +113,12 @@ function play(src) {
   player.play();
 }
 </script>
-
+<button onclick="play('mQyWs9O2e_I')">Серия 1</button>
+<script>
+function play(id) {
+  document.getElementById("player").src =
+    "https://www.youtube.com/embed/" + id;
+}
+</script>
 </body>
 </html>
