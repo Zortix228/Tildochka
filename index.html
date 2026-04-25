@@ -1,97 +1,112 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <title>Tildochka</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0b0b0b;
-      color: white;
-      text-align: center;
-    }
+<meta charset="UTF-8">
+<title>Tildochka</title>
 
-    .container {
-      display: none;
-      padding: 20px;
-    }
+<style>
+body {
+  margin: 0;
+  font-family: Arial;
+  background: white;
+}
 
-    h1 {
-      font-size: 40px;
-      margin-top: 40px;
-    }
+/* логотип */
+.logo {
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  font-size: 28px;
+  font-weight: bold;
+}
 
-    .movies {
-      display: flex;
-      gap: 20px;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-top: 40px;
-    }
+/* контейнер */
+.container {
+  margin-top: 80px;
+  text-align: center;
+}
 
-    .card {
-      background: #1c1c1c;
-      padding: 10px;
-      border-radius: 10px;
-      width: 200px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
+/* сериал */
+.video-box {
+  margin-top: 20px;
+}
 
-    .card:hover {
-      transform: scale(1.05);
-    }
+button {
+  margin: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+}
 
-    img {
-      width: 100%;
-      border-radius: 10px;
-    }
+/* отзывы */
+.reviews {
+  margin-top: 40px;
+}
 
-    .blocked {
-      display: none;
-      margin-top: 100px;
-      font-size: 30px;
-      color: red;
-    }
-  </style>
+.review {
+  border-top: 1px solid #ccc;
+  padding: 10px;
+}
+</style>
 </head>
+
 <body>
 
-<div class="container" id="site">
-  <h1>🎬 Tildochka</h1>
+<script>
+let pass = prompt("Введите кодовое слово:");
+let valid = ["четыре курицы","Четыре курицы","4 курицы"];
 
-  <div class="movies">
-    <div class="card">
-      <img src="https://via.placeholder.com/200x300">
-      <p>Мой сериал 1</p>
-    </div>
+if (!valid.includes(pass)) {
+  document.body.innerHTML = "<h1>❌ Доступ запрещён</h1>";
+}
+</script>
 
-    <div class="card">
-      <img src="https://via.placeholder.com/200x300">
-      <p>Мой сериал 2</p>
-    </div>
+<div class="logo">Tildochka</div>
+
+<div class="container">
+
+<h1>Приключения 4 куриц</h1>
+
+<p>⭐ Рейтинг: 9.5 / 10</p>
+
+<p>Описание: Это история про 4 куриц, которые попадают в странные и смешные приключения...</p>
+
+<!-- ВИДЕО -->
+<div class="video-box">
+  <video id="player" width="600" controls>
+    <source src="episode1.mp4" type="video/mp4">
+  </video>
+</div>
+
+<!-- СЕРИИ -->
+<h3>Сезон 1</h3>
+
+<button onclick="play('episode1.mp4')">Серия 1</button>
+<button onclick="play('episode2.mp4')">Серия 2</button>
+<button onclick="play('episode3.mp4')">Серия 3</button>
+<button onclick="play('episode4.mp4')">Серия 4</button>
+<button disabled>Серия 5 (скоро)</button>
+
+<!-- ОТЗЫВЫ -->
+<div class="reviews">
+  <h2>Отзывы</h2>
+
+  <div class="review">
+    <b>Аня:</b> Очень смешной сериал 😂
+  </div>
+
+  <div class="review">
+    <b>Макс:</b> Жду 5 серию!!
   </div>
 </div>
 
-<div class="blocked" id="blocked">
-  ❌ Доступ запрещён
 </div>
 
 <script>
-  let pass = prompt("Введите кодовое слово:");
-
-  let valid = [
-    "четыре курицы",
-    "Четыре курицы",
-    "4 курицы"
-  ];
-
-  if (valid.includes(pass)) {
-    document.getElementById("site").style.display = "block";
-  } else {
-    document.getElementById("blocked").style.display = "block";
-  }
+function play(src) {
+  let player = document.getElementById("player");
+  player.src = src;
+  player.play();
+}
 </script>
 
 </body>
