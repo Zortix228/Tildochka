@@ -71,16 +71,24 @@ if (!valid.includes(pass)) {
 <p>Описание: Это история про 4 куриц, которые попадают в странные и смешные приключения...</p>
 
 <!-- ВИДЕО -->
-<div class="video-box">
-  <div class="video-box">
-  <iframe id="player" width="600" height="340"
-    src="https://www.youtube.com/embed/mQyWs9O2e_I"
-    frameborder="0" allowfullscreen>
-  </iframe>
-</div>
-    <source src="episode1.mp4" type="video/mp4">
-  </video>
-</div>
+<video id="player" width="700" controls>
+  <source src="episode1.mp4" type="video/mp4">
+</video>
+
+<br><br>
+
+<button onclick="play('episode1.mp4')">Серия 1</button>
+<button onclick="play('episode2.mp4')">Серия 2</button>
+<button onclick="play('episode3.mp4')">Серия 3</button>
+<button onclick="play('episode4.mp4')">Серия 4</button>
+
+<script>
+function play(src) {
+  let player = document.getElementById("player");
+  player.src = src;
+  player.play();
+}
+</script>
 
 <!-- СЕРИИ -->
 <h3>Сезон 1</h3>
