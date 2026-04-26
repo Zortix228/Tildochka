@@ -129,5 +129,15 @@ function play(id) {
     "https://www.youtube.com/embed/" + id;
 }
 </script>
+<script>
+function play(src) {
+  let video = document.getElementById("player");
+  let source = document.getElementById("videosrc");
+
+  source.src = src;
+  video.load();   // 🔥 ПЕРЕЗАГРУЖАЕТ ВИДЕО
+  video.play();
+}
+</script>
 </body>
 </html>
