@@ -8,84 +8,142 @@
 body {
   margin: 0;
   font-family: Arial;
-  background: url("bg.jpg") no-repeat center/cover;
-  color: white;
+  background: url("bg.png") no-repeat center/cover;
+}
+
+/* затемнение как на сайтах */
+.overlay {
+  background: rgba(0,0,0,0.7);
+  min-height: 100vh;
 }
 
 /* логотип */
 .logo {
   position: fixed;
-  top: 10px;
-  left: 20px;
-  font-size: 28px;
+  top: 15px;
+  left: 25px;
+  font-size: 30px;
   font-weight: bold;
+  color: white;
 }
 
-/* экран доступа */
-#blocked {
-  display: none;
-  height: 100vh;
-  justify-content: center;
-  align-items: center;
-  font-size: 40px;
-}
-
-/* страницы */
-.page {
-  display: none;
-  padding: 80px 20px;
+/* контейнер по центру */
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding-top: 100px;
+  text-align: center;
+  color: white;
 }
 
 /* карточка */
 .card {
-  width: 200px;
+  width: 220px;
+  margin: auto;
   cursor: pointer;
 }
 
 .card img {
   width: 100%;
-  border-radius: 10px;
+  border-radius: 12px;
 }
 
-/* плеер */
+/* видео */
 video {
-  width: 80%;
+  width: 100%;
+  max-width: 700px;
   margin-top: 20px;
+  border-radius: 10px;
 }
 
 /* кнопки */
 button {
-  margin: 5px;
-  padding: 10px;
+  margin: 8px;
+  padding: 12px 18px;
+  font-size: 16px;
   cursor: pointer;
   background: #222;
   color: white;
   border: none;
+  border-radius: 8px;
 }
 
 /* отзывы */
 .review {
-  border-top: 1px solid #444;
+  border-top: 1px solid #555;
   padding: 10px;
   text-align: left;
+}
+
+/* экран блокировки */
+#blocked {
+  display: none;
+  height: 100vh;
+  background: white;
+  color: black;
+  font-size: 40px;
+  justify-content: center;
+  align-items: center;
 }
 </style>
 </head>
 
 <body>
 
+<div id="blocked">ДОСТУП ЗАПРЕЩЕН</div>
+
+<div class="overlay">
+
 <div class="logo">Tildochka</div>
 
-<div id="blocked">❌ Доступ запрещён</div>
-
-<!-- ГЛАВНАЯ -->
-<div id="home" class="page">
+<div id="home" class="container">
   <h1>Мои сериалы</h1>
 
   <div class="card" onclick="openSerial()">
     <img src="cover.jpg">
     <p>Приключения 4 куриц</p>
   </div>
+</div>
+
+<div id="serial" class="container" style="display:none;">
+
+<h1>Приключения 4 куриц</h1>
+
+<p>⭐ 9.5 / 10</p>
+
+<p>
+Очень увлекательный сериал основанный на реальных событиях,
+там рассказывается про истории не разделенной любви
+и про силу этой самой любви
+</p>
+
+<p>🎭 комедия / боевик / романтика</p>
+
+<video id="player" controls>
+  <source id="videosrc" src="episode1.mp4">
+</video>
+
+<h3>Сезоны</h3>
+<button onclick="showSeason()">Сезон 1</button>
+
+<div id="season1" style="display:none;">
+  <h3>Серии</h3>
+  <button onclick="play('episode1.mp4')">1 серия</button>
+  <button onclick="play('episode2.mp4')">2 серия</button>
+  <button onclick="play('episode3.mp4')">3 серия</button>
+  <button onclick="play('episode4.mp4')">4 серия</button>
+</div>
+
+<h2>Отзывы</h2>
+
+<input id="name" placeholder="Имя"><br><br>
+<textarea id="text" placeholder="Отзыв"></textarea><br><br>
+<button onclick="addReview()">Отправить</button>
+
+<div id="reviews"></div>
+
+</div>
+
 </div>
 
 <!-- СТРАНИЦА СЕРИАЛА -->
@@ -133,28 +191,25 @@ button {
 </div>
 
 <script>
-/* 🔐 ПРОВЕРКА ПАРОЛЯ */
 let pass = prompt("Введите кодовое слово:");
 let valid = ["четыре курицы","Четыре курицы","4 курицы"];
 
 if (!valid.includes(pass)) {
   document.getElementById("blocked").style.display = "flex";
+  document.querySelector(".overlay").style.display = "none";
 } else {
   document.getElementById("home").style.display = "block";
 }
 
-/* переход */
 function openSerial() {
   document.getElementById("home").style.display = "none";
   document.getElementById("serial").style.display = "block";
 }
 
-/* сезоны */
-function showSeason(num) {
+function showSeason() {
   document.getElementById("season1").style.display = "block";
 }
 
-/* плеер */
 function play(src) {
   let video = document.getElementById("player");
   let source = document.getElementById("videosrc");
@@ -164,7 +219,6 @@ function play(src) {
   video.play();
 }
 
-/* отзывы */
 function addReview() {
   let name = document.getElementById("name").value;
   let text = document.getElementById("text").value;
