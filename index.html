@@ -8,12 +8,12 @@
 body {
   margin: 0;
   font-family: Arial;
-  background: url("bg.png") no-repeat center/cover;
+  background: url("bg.jpg") no-repeat center/cover;
 }
 
-/* затемнение как на сайтах */
+/* затемнение */
 .overlay {
-  background: rgba(0,0,0,0.7);
+  background: rgba(0,0,0,0.8);
   min-height: 100vh;
 }
 
@@ -27,52 +27,49 @@ body {
   color: white;
 }
 
-/* контейнер по центру */
+/* контейнер */
 .container {
   max-width: 900px;
   margin: auto;
   padding-top: 100px;
-  text-align: center;
   color: white;
 }
 
-/* карточка */
-.card {
-  width: 220px;
-  margin: auto;
-  cursor: pointer;
+/* постер */
+.poster {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 15px;
 }
 
-.card img {
-  width: 100%;
-  border-radius: 12px;
+/* текст блок */
+.section {
+  margin-top: 40px;
 }
 
 /* видео */
 video {
   width: 100%;
-  max-width: 700px;
   margin-top: 20px;
   border-radius: 10px;
 }
 
 /* кнопки */
 button {
-  margin: 8px;
-  padding: 12px 18px;
+  margin: 10px 5px;
+  padding: 12px 20px;
   font-size: 16px;
-  cursor: pointer;
   background: #222;
   color: white;
   border: none;
   border-radius: 8px;
+  cursor: pointer;
 }
 
 /* отзывы */
 .review {
   border-top: 1px solid #555;
   padding: 10px;
-  text-align: left;
 }
 
 /* экран блокировки */
@@ -96,98 +93,67 @@ button {
 
 <div class="logo">Tildochka</div>
 
-<div id="home" class="container">
-  <h1>Мои сериалы</h1>
+<div class="container">
 
-  <div class="card" onclick="openSerial()">
-    <img src="cover.jpg">
-    <p>Приключения 4 куриц</p>
+<!-- ПОСТЕР -->
+<div class="section" style="text-align:center;">
+  <img src="cover.jpg" class="poster">
+  <h1>Приключения 4 куриц</h1>
+  <h2>⭐ 9.5 / 10</h2>
+</div>
+
+<!-- ОПИСАНИЕ -->
+<div class="section">
+  <h2>Описание</h2>
+  <p>
+  Очень увлекательный сериал, основанный на частично реальных и частично абсолютно безумных событиях.
+  История рассказывает о четырёх курицах, которые неожиданно оказываются втянутыми в череду странных,
+  смешных и иногда даже опасных приключений. В центре сюжета — тема неразделённой любви, дружбы,
+  преданности и силы чувств, которые способны преодолеть любые препятствия.
+  С каждой серией герои сталкиваются с новыми испытаниями, которые заставляют их меняться,
+  расти и по-новому смотреть на мир.
+  </p>
+</div>
+
+<!-- ЖАНР -->
+<div class="section">
+  <h2>Жанр</h2>
+  <p>комедия / боевик / романтика</p>
+</div>
+
+<!-- ПЛЕЕР -->
+<div class="section">
+  <video id="player" controls>
+    <source id="videosrc" src="episode1.mp4">
+  </video>
+</div>
+
+<!-- СЕЗОНЫ -->
+<div class="section">
+  <h2>Сезоны</h2>
+  <button onclick="showSeason()">Сезон 1</button>
+
+  <div id="season1" style="display:none;">
+    <h3>Серии</h3>
+    <button onclick="play('episode1.mp4')">1 серия</button>
+    <button onclick="play('episode2.mp4')">2 серия</button>
+    <button onclick="play('episode3.mp4')">3 серия</button>
+    <button onclick="play('episode4.mp4')">4 серия</button>
   </div>
 </div>
 
-<div id="serial" class="container" style="display:none;">
-
-<h1>Приключения 4 куриц</h1>
-
-<p>⭐ 9.5 / 10</p>
-
-<p>
-Очень увлекательный сериал основанный на реальных событиях,
-там рассказывается про истории не разделенной любви
-и про силу этой самой любви
-</p>
-
-<p>🎭 комедия / боевик / романтика</p>
-
-<video id="player" controls>
-  <source id="videosrc" src="episode1.mp4">
-</video>
-
-<h3>Сезоны</h3>
-<button onclick="showSeason()">Сезон 1</button>
-
-<div id="season1" style="display:none;">
-  <h3>Серии</h3>
-  <button onclick="play('episode1.mp4')">1 серия</button>
-  <button onclick="play('episode2.mp4')">2 серия</button>
-  <button onclick="play('episode3.mp4')">3 серия</button>
-  <button onclick="play('episode4.mp4')">4 серия</button>
-</div>
-
-<h2>Отзывы</h2>
-
-<input id="name" placeholder="Имя"><br><br>
-<textarea id="text" placeholder="Отзыв"></textarea><br><br>
-<button onclick="addReview()">Отправить</button>
-
-<div id="reviews"></div>
-
-</div>
-
-</div>
-
-<!-- СТРАНИЦА СЕРИАЛА -->
-<div id="serial" class="page">
-
-<h1>Приключения 4 куриц</h1>
-
-<p>⭐ Рейтинг: 9.5 / 10</p>
-
-<p>
-Очень увлекательный сериал основанный на реальных событиях, 
-там рассказывается про истории не разделенной любви 
-и про силу этой самой любви.
-</p>
-
-<p>🎭 Жанр: комедия, боевик, романтика</p>
-
-<!-- ВИДЕО -->
-<video id="player" controls>
-  <source id="videosrc" src="episode1.mp4" type="video/mp4">
-</video>
-
-<!-- СЕЗОНЫ -->
-<h3>Сезоны</h3>
-<button onclick="showSeason(1)">Сезон 1</button>
-
-<!-- СЕРИИ -->
-<div id="season1" style="display:none;">
-  <h3>Серии</h3>
-  <button onclick="play('episode1.mp4')">1 серия</button>
-  <button onclick="play('episode2.mp4')">2 серия</button>
-  <button onclick="play('episode3.mp4')">3 серия</button>
-  <button onclick="play('episode4.mp4')">4 серия</button>
-</div>
-
 <!-- ОТЗЫВЫ -->
-<h2>Отзывы</h2>
+<div class="section">
+  <h2>Отзывы</h2>
 
-<input id="name" placeholder="Имя"><br><br>
-<textarea id="text" placeholder="Напиши отзыв"></textarea><br><br>
-<button onclick="addReview()">Отправить</button>
+  <input id="name" placeholder="Имя"><br><br>
+  <textarea id="text" placeholder="Напиши отзыв"></textarea><br><br>
+  <button onclick="addReview()">Отправить</button>
 
-<div id="reviews"></div>
+  <div id="reviews"></div>
+</div>
 
+</div>
 </div>
 
 <script>
@@ -197,13 +163,6 @@ let valid = ["четыре курицы","Четыре курицы","4 кури
 if (!valid.includes(pass)) {
   document.getElementById("blocked").style.display = "flex";
   document.querySelector(".overlay").style.display = "none";
-} else {
-  document.getElementById("home").style.display = "block";
-}
-
-function openSerial() {
-  document.getElementById("home").style.display = "none";
-  document.getElementById("serial").style.display = "block";
 }
 
 function showSeason() {
