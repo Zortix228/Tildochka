@@ -8,131 +8,179 @@
 body {
   margin: 0;
   font-family: Arial;
-  background: white;
+  background: url("bg.jpg") no-repeat center/cover;
+  color: white;
 }
 
 /* логотип */
 .logo {
-  position: absolute;
+  position: fixed;
   top: 10px;
   left: 20px;
   font-size: 28px;
   font-weight: bold;
 }
 
-/* контейнер */
-.container {
-  margin-top: 80px;
-  text-align: center;
+/* экран доступа */
+#blocked {
+  display: none;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
 }
 
-/* сериал */
-.video-box {
-  margin-top: 20px;
+/* страницы */
+.page {
+  display: none;
+  padding: 80px 20px;
 }
 
-button {
-  margin: 5px;
-  padding: 10px 15px;
+/* карточка */
+.card {
+  width: 200px;
   cursor: pointer;
 }
 
-/* отзывы */
-.reviews {
-  margin-top: 40px;
+.card img {
+  width: 100%;
+  border-radius: 10px;
 }
 
-.review {
-  border-top: 1px solid #ccc;
+/* плеер */
+video {
+  width: 80%;
+  margin-top: 20px;
+}
+
+/* кнопки */
+button {
+  margin: 5px;
   padding: 10px;
+  cursor: pointer;
+  background: #222;
+  color: white;
+  border: none;
+}
+
+/* отзывы */
+.review {
+  border-top: 1px solid #444;
+  padding: 10px;
+  text-align: left;
 }
 </style>
 </head>
 
 <body>
 
-<script>
-let pass = prompt("Введите кодовое слово:");
-let valid = ["четыре курицы","Четыре курицы","4 курицы"];
-
-if (!valid.includes(pass)) {
-  document.body.innerHTML = "<h1 style='text-align:center;margin-top:100px;'>❌ Доступ запрещён</h1>";
-  throw new Error("Доступ запрещён"); // ОСТАНАВЛИВАЕТ ВСЁ
-}
-</script>
-
 <div class="logo">Tildochka</div>
 
-<div class="container">
+<div id="blocked">❌ Доступ запрещён</div>
+
+<!-- ГЛАВНАЯ -->
+<div id="home" class="page">
+  <h1>Мои сериалы</h1>
+
+  <div class="card" onclick="openSerial()">
+    <img src="cover.jpg">
+    <p>Приключения 4 куриц</p>
+  </div>
+</div>
+
+<!-- СТРАНИЦА СЕРИАЛА -->
+<div id="serial" class="page">
 
 <h1>Приключения 4 куриц</h1>
 
 <p>⭐ Рейтинг: 9.5 / 10</p>
 
-<p>Описание: Это история про 4 куриц, которые попадают в странные и смешные приключения...</p>
+<p>
+Очень увлекательный сериал основанный на реальных событиях, 
+там рассказывается про истории не разделенной любви 
+и про силу этой самой любви.
+</p>
+
+<p>🎭 Жанр: комедия, боевик, романтика</p>
 
 <!-- ВИДЕО -->
-<video id="player" width="700" controls>
-  <source src="episode1.mp4" type="video/mp4">
+<video id="player" controls>
+  <source id="videosrc" src="episode1.mp4" type="video/mp4">
 </video>
 
-<br><br>
-
-<button onclick="play('episode1.mp4')">Серия 1</button>
-<button onclick="play('episode2.mp4')">Серия 2</button>
-<button onclick="play('episode3.mp4')">Серия 3</button>
-<button onclick="play('episode4.mp4')">Серия 4</button>
-
-<script>
-function play(src) {
-  let player = document.getElementById("player");
-  player.src = src;
-  player.play();
-}
-</script>
+<!-- СЕЗОНЫ -->
+<h3>Сезоны</h3>
+<button onclick="showSeason(1)">Сезон 1</button>
 
 <!-- СЕРИИ -->
-<h3>Сезон 1</h3>
-
-<button onclick="play('episode1.mp4')">Серия 1</button>
-<button onclick="play('episode2.mp4')">Серия 2</button>
-<button onclick="play('episode3.mp4')">Серия 3</button>
-<button onclick="play('episode4.mp4')">Серия 4</button>
-<button disabled>Серия 5 (скоро)</button>
+<div id="season1" style="display:none;">
+  <h3>Серии</h3>
+  <button onclick="play('episode1.mp4')">1 серия</button>
+  <button onclick="play('episode2.mp4')">2 серия</button>
+  <button onclick="play('episode3.mp4')">3 серия</button>
+  <button onclick="play('episode4.mp4')">4 серия</button>
+</div>
 
 <!-- ОТЗЫВЫ -->
-<div class="reviews">
-  <h2>Отзывы</h2>
+<h2>Отзывы</h2>
 
-  <div class="review">
-    <b>Аня:</b> Очень смешной сериал 😂
-  </div>
+<input id="name" placeholder="Имя"><br><br>
+<textarea id="text" placeholder="Напиши отзыв"></textarea><br><br>
+<button onclick="addReview()">Отправить</button>
 
-  <div class="review">
-    <b>Макс:</b> Жду 5 серию!!
-  </div>
-</div>
+<div id="reviews"></div>
 
 </div>
 
 <script>
-function play(src) {
-  let player = document.getElementById("player");
-  player.src = src;
-  player.play();
+/* 🔐 ПРОВЕРКА ПАРОЛЯ */
+let pass = prompt("Введите кодовое слово:");
+let valid = ["четыре курицы","Четыре курицы","4 курицы"];
+
+if (!valid.includes(pass)) {
+  document.getElementById("blocked").style.display = "flex";
+} else {
+  document.getElementById("home").style.display = "block";
 }
-</script>
-<button onclick="play('mQyWs9O2e_I')">Серия 1</button>
-<script>
-<script>
+
+/* переход */
+function openSerial() {
+  document.getElementById("home").style.display = "none";
+  document.getElementById("serial").style.display = "block";
+}
+
+/* сезоны */
+function showSeason(num) {
+  document.getElementById("season1").style.display = "block";
+}
+
+/* плеер */
 function play(src) {
   let video = document.getElementById("player");
   let source = document.getElementById("videosrc");
 
   source.src = src;
-  video.load();   // 🔥 ПЕРЕЗАГРУЖАЕТ ВИДЕО
+  video.load();
   video.play();
 }
+
+/* отзывы */
+function addReview() {
+  let name = document.getElementById("name").value;
+  let text = document.getElementById("text").value;
+
+  if (!name || !text) return;
+
+  let div = document.createElement("div");
+  div.className = "review";
+  div.innerHTML = "<b>" + name + ":</b> " + text;
+
+  document.getElementById("reviews").prepend(div);
+
+  document.getElementById("name").value = "";
+  document.getElementById("text").value = "";
+}
 </script>
+
 </body>
 </html>
