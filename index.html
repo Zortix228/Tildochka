@@ -56,7 +56,8 @@ let pass = prompt("Введите кодовое слово:");
 let valid = ["четыре курицы","Четыре курицы","4 курицы"];
 
 if (!valid.includes(pass)) {
-  document.body.innerHTML = "<h1>❌ Доступ запрещён</h1>";
+  document.body.innerHTML = "<h1 style='text-align:center;margin-top:100px;'>❌ Доступ запрещён</h1>";
+  throw new Error("Доступ запрещён"); // ОСТАНАВЛИВАЕТ ВСЁ
 }
 </script>
 
